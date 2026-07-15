@@ -1,0 +1,90 @@
+<div class="page">
+
+    <!-- ===== Navbar ===== -->
+    <header class="navbar">
+        <div class="brand">
+            <span nz-icon nzType="swap" nzTheme="outline" class="brand-icon"></span>
+            <span class="brand-name">SkillSwap</span>
+        </div>
+
+        <nav class="nav-links">
+            <a *ngFor="let link of navLinks" [class.active]="link.active">{{ link.label }}</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button nz-button nzType="text" class="login-btn">Log In</button>
+            <button nz-button nzType="primary" class="signup-btn">Sign Up</button>
+        </div>
+    </header>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" nz-row [nzGutter]="32">
+        <div nz-col [nzXs]="24" [nzMd]="11" class="hero-copy">
+            <h1>
+                Swap Skills.<br />
+                <span class="highlight">Grow</span> Together.
+            </h1>
+            <p class="subtext">
+                Learn what you love and teach what you know. Join thousands of learners
+                building real skills through collaboration.
+            </p>
+
+            <div class="cta-row">
+                <button nz-button nzType="primary" nzSize="large" class="cta-primary">
+                    Get Started <span nz-icon nzType="arrow-right"></span>
+                </button>
+                <button nz-button nzSize="large" class="cta-secondary">Browse Skills</button>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card" *ngFor="let s of stats">
+                    <div class="stat-value">{{ s.value }}</div>
+                    <div class="stat-label">{{ s.label }}</div>
+                </div>
+                <div class="stat-card rating-card">
+                    <div class="stat-value">
+                        {{ rating }} <span nz-icon nzType="star" nzTheme="fill" class="star-icon"></span>
+                    </div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+            </div>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzMd]="13" class="hero-illustration">
+            <div class="illustration-frame">
+
+                <div class="person person-left">
+                    <img src="assets/illustrations/hero_boy.png" alt="Person teaching a skill" class="avatar-img" />
+                </div>
+
+                <div class="swap-badge">
+                    <span nz-icon nzType="swap" nzTheme="outline"></span>
+                </div>
+
+                <div class="person person-right">
+                    <img src="assets/illustrations/hero_girl.png" alt="Person learning a skill" class="avatar-img" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Popular Skills ===== -->
+    <section class="popular-skills">
+        <div class="section-header">
+            <h2>Popular Skills</h2>
+            <a class="view-all">View all</a>
+        </div>
+
+        <div nz-row [nzGutter]="[16, 16]">
+            <div nz-col [nzXs]="12" [nzSm]="8" [nzMd]="6" [nzLg]="3" *ngFor="let skill of skills">
+                <nz-card class="skill-card" [nzBordered]="true">
+                    <div class="skill-icon" [ngStyle]="{ background: skill.bg, color: skill.color }">
+                        <span nz-icon [nzType]="skill.icon"></span>
+                    </div>
+                    <div class="skill-name">{{ skill.name }}</div>
+                </nz-card>
+            </div>
+        </div>
+    </section>
+
+</div>

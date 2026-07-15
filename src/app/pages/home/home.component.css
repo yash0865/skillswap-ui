@@ -1,0 +1,311 @@
+:host {
+    display: block;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #14142b;
+}
+
+.page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0;
+}
+
+.navbar .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.navbar .brand .brand-icon {
+    font-size: 24px;
+    color: #5B4FE8;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.navbar .nav-links a {
+    color: #6b6b7b;
+    font-size: 15px;
+    cursor: pointer;
+    padding-bottom: 4px;
+}
+
+.navbar .nav-links a.active {
+    color: #5B4FE8;
+    font-weight: 600;
+    border-bottom: 2px solid #5B4FE8;
+}
+
+.navbar .nav-links a:hover {
+    color: #5B4FE8;
+}
+
+.navbar .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.navbar .nav-actions .login-btn {
+    border: 1px solid #e4e4ef;
+    border-radius: 8px;
+}
+
+.navbar .nav-actions .signup-btn {
+    background: #5B4FE8;
+    border-color: #5B4FE8;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* ===== Hero ===== */
+.hero {
+    padding: 48px 0 64px;
+    align-items: center;
+}
+
+.hero .hero-copy h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.hero .hero-copy h1 .highlight {
+    color: #5B4FE8;
+    position: relative;
+}
+
+.hero .hero-copy h1 .highlight::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 4px;
+    background: #F0A93E;
+    border-radius: 2px;
+}
+
+.hero .hero-copy .subtext {
+    font-size: 16px;
+    color: #6b6b7b;
+    line-height: 1.6;
+    max-width: 440px;
+    margin-bottom: 28px;
+}
+
+.hero .hero-copy .cta-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.hero .hero-copy .cta-row .cta-primary {
+    background: #5B4FE8;
+    border-color: #5B4FE8;
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 0 24px;
+}
+
+.hero .hero-copy .cta-row .cta-secondary {
+    border-radius: 10px;
+    border-color: #e4e4ef;
+    font-weight: 600;
+    padding: 0 24px;
+}
+
+.hero .hero-copy .stats-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hero .hero-copy .stats-row .stat-card {
+    border: 1px solid #ececf5;
+    border-radius: 12px;
+    padding: 14px 20px;
+    min-width: 110px;
+}
+
+.hero .hero-copy .stats-row .stat-card .stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #5B4FE8;
+}
+
+.hero .hero-copy .stats-row .stat-card .stat-value .star-icon {
+    color: #F0A93E;
+    font-size: 16px;
+}
+
+.hero .hero-copy .stats-row .stat-card .stat-label {
+    font-size: 12px;
+    color: #9a9aa8;
+    margin-top: 2px;
+}
+
+.hero .hero-copy .stats-row .stat-card.rating-card .stat-value {
+    color: #14142b;
+}
+
+/* ===== Illustration ===== */
+.hero .hero-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero .illustration-frame {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    height: 520px;
+    background: radial-gradient(circle at 30% 30%, #FAF3E4 0%, rgba(250, 243, 228, 0) 60%), #F7F7FC;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px;
+}
+
+.hero .illustration-frame .person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    z-index: 1;
+}
+
+.hero .illustration-frame .person .avatar-img {
+    width: 280px;
+    height: 280px;
+    object-fit: contain;
+    display: block;
+}
+
+.hero .illustration-frame .person .laptop {
+    width: 180px;
+    height: 100px;
+    border-radius: 12px 12px 4px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #F0A93E;
+}
+
+.hero .illustration-frame .person .laptop.laptop-purple {
+    background: #2E2A4F;
+}
+
+.hero .illustration-frame .person .laptop.laptop-dark {
+    background: #241F3D;
+}
+
+.hero .illustration-frame .swap-badge {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    background: #5B4FE8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(91, 79, 232, 0.35);
+    z-index: 2;
+}
+
+/* ===== Popular Skills ===== */
+.popular-skills {
+    padding: 24px 0 64px;
+}
+
+.popular-skills .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.popular-skills .section-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.popular-skills .section-header .view-all {
+    color: #5B4FE8;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.popular-skills .skill-card {
+    border-radius: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.popular-skills .skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(20, 20, 43, 0.08);
+}
+
+.popular-skills .skill-card ::ng-deep .ant-card-body {
+    padding: 20px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.popular-skills .skill-card .skill-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.popular-skills .skill-card .skill-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .navbar .nav-links {
+        display: none;
+    }
+
+    .hero .hero-copy h1 {
+        font-size: 34px;
+    }
+
+    .illustration-frame {
+        height: 300px;
+    }
+}
