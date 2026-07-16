@@ -1,9 +1,9 @@
 <div class="auth-navbar">
   <app-navbar></app-navbar>
 </div>
+
 <div class="auth-page">
     <div class="auth-card">
-
         <!-- ===== Illustration side ===== -->
         <div class="auth-illustration">
             <div class="brand">
@@ -19,7 +19,8 @@
             <p class="subtext">Join SkillSwap and start exchanging skills</p>
 
             <form nz-form [formGroup]="signupForm" (ngSubmit)="submit()" nzLayout="vertical">
-
+                <nz-alert *ngIf="signupStatus === 'success'" nzType="success" [nzMessage]="signupMessage" nzShowIcon class="signup-alert" />
+                <nz-alert *ngIf="signupStatus === 'error'" nzType="error" [nzMessage]="signupMessage" nzShowIcon class="signup-alert" />
                 <nz-form-item>
                     <nz-form-label nzFor="name">Full Name</nz-form-label>
                     <nz-form-control [nzErrorTip]="nameErrorTpl">

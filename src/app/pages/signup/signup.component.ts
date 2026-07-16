@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -10,10 +10,12 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 import { SignUpDTO } from '../../shared/auth.models';
 import { passwordMatchValidator } from '../../shared/password-match.validator';
-import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -29,6 +31,7 @@ import { NavbarComponent } from "../../components/navbar/navbar.component";
     NzIconModule,
     NzSelectModule,
     NzGridModule,
+    NzAlertModule,
     NavbarComponent
 ],
   templateUrl: './signup.component.html',
@@ -36,10 +39,14 @@ import { NavbarComponent } from "../../components/navbar/navbar.component";
 })
 export class SignupComponent {
   private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   passwordVisible = false;
   confirmPasswordVisible = false;
   submitting = false;
+  signupStatus: 'success' | 'error' | null = null;
+  signupMessage = '';
 
   // "I want to join as" is UI-only for now — SignUpDTO has no role field yet.
   // Add one on the backend if you want this persisted; see README.
@@ -54,7 +61,6 @@ export class SignupComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
       confirmPassword: ['', [Validators.required]],
-      bio: ['', [Validators.minLength(10), Validators.maxLength(50)]],
       role: ['MEMBER'],
       agreeTerms: [false, [Validators.requiredTrue]]
     },
@@ -82,24 +88,29 @@ export class SignupComponent {
       return;
     }
 
-    // bio is optional server-side (no @NotBlank) but if provided must be 10-50 chars;
-    // send undefined rather than an empty string so the size validator isn't tripped.
-    const bio = this.signupForm.value.bio?.trim();
-
     const payload: SignUpDTO = {
       name: this.signupForm.value.name,
       email: this.signupForm.value.email,
-      password: this.signupForm.value.password,
-      bio: bio ? bio : undefined
+      password: this.signupForm.value.password
     };
 
     this.submitting = true;
-    // TODO: wire up to your AuthService, e.g.
-    // this.authService.signup(payload).subscribe({
-    //   next: () => this.router.navigate(['/login']),
-    //   error: (err) => { this.submitting = false; /* show error */ },
-    //   complete: () => this.submitting = false
-    // });
-    console.log('Signup payload', payload);
+    this.signupStatus = null;
+    this.signupMessage = '';
+
+    this.authService.signup(payload).subscribe({
+      next: () => {
+        this.submitting = false;
+        this.signupStatus = 'success';
+        this.signupMessage = 'Signup successful!';
+        setTimeout(() => this.router.navigate(['/']), 1000);
+      },
+      error: (err) => {
+        this.submitting = false;
+        this.signupStatus = 'error';
+        this.signupMessage = err?.error || 'Signup failed! Please try again.';
+        console.error('Signup failed', err);
+      }
+    });
   }
 }

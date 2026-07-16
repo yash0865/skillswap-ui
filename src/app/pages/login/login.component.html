@@ -20,6 +20,8 @@
 
             <form nz-form [formGroup]="loginForm" (ngSubmit)="submit()" nzLayout="vertical">
 
+                <nz-alert *ngIf="loginError" nzType="error" [nzMessage]="loginError" nzShowIcon class="login-alert" />
+
                 <nz-form-item>
                     <nz-form-label nzFor="email">Email Address</nz-form-label>
                     <nz-form-control [nzErrorTip]="emailErrorTpl">
