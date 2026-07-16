@@ -1,0 +1,15 @@
+<header class="navbar">
+  <div class="brand">
+    <span nz-icon nzType="swap" nzTheme="outline" class="brand-icon"></span>
+    <span class="brand-name">SkillSwap</span>
+  </div>
+
+  <nav class="nav-links">
+    <a *ngFor="let link of navLinks" [class.active]="link.active">{{ link.label }}</a>
+  </nav>
+
+  <div class="nav-actions">
+    <button nz-button nzType="text" class="login-btn" routerLink="/login">Log In</button>
+    <button nz-button nzType="primary" class="signup-btn" routerLink="/signup">Sign Up</button>
+  </div>
+</header>

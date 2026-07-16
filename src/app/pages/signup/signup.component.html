@@ -1,0 +1,105 @@
+<div class="auth-navbar">
+  <app-navbar></app-navbar>
+</div>
+<div class="auth-page">
+    <div class="auth-card">
+
+        <!-- ===== Illustration side ===== -->
+        <div class="auth-illustration">
+            <div class="brand">
+                <span nz-icon nzType="swap" nzTheme="outline" class="brand-icon"></span>
+                <span class="brand-name">SkillSwap</span>
+            </div>
+            <img src="assets/illustrations/signup.png" alt="Person exploring skills" class="illustration-img" />
+        </div>
+
+        <!-- ===== Form side ===== -->
+        <div class="auth-form-panel">
+            <h1>Create Your Account</h1>
+            <p class="subtext">Join SkillSwap and start exchanging skills</p>
+
+            <form nz-form [formGroup]="signupForm" (ngSubmit)="submit()" nzLayout="vertical">
+
+                <nz-form-item>
+                    <nz-form-label nzFor="name">Full Name</nz-form-label>
+                    <nz-form-control [nzErrorTip]="nameErrorTpl">
+                        <input nz-input id="name" formControlName="name" placeholder="Enter your full name" />
+                        <ng-template #nameErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Name cannot be empty</ng-container>
+                            <ng-container *ngIf="control.hasError('minlength') || control.hasError('maxlength')">
+                                Name must be between 3 and 20 characters
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzFor="email">Email Address</nz-form-label>
+                    <nz-form-control [nzErrorTip]="emailErrorTpl">
+                        <input nz-input id="email" type="email" formControlName="email"
+                            placeholder="Enter your email" />
+                        <ng-template #emailErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Email cannot be empty</ng-container>
+                            <ng-container *ngIf="control.hasError('email')">Invalid email format</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzFor="password">Password</nz-form-label>
+                    <nz-form-control [nzErrorTip]="passwordErrorTpl">
+                        <nz-input-group [nzSuffix]="passwordSuffixTpl">
+                            <input nz-input id="password" [type]="passwordVisible ? 'text' : 'password'"
+                                formControlName="password" placeholder="Create a password" />
+                        </nz-input-group>
+                        <ng-template #passwordSuffixTpl>
+                            <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                (click)="togglePasswordVisibility()" class="password-toggle"></span>
+                        </ng-template>
+                        <ng-template #passwordErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Password cannot be empty</ng-container>
+                            <ng-container *ngIf="control.hasError('minlength') || control.hasError('maxlength')">
+                                Password must be between 8 and 16 characters
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzFor="confirmPassword">Confirm Password</nz-form-label>
+                    <nz-form-control [nzErrorTip]="confirmPasswordErrorTpl">
+                        <nz-input-group [nzSuffix]="confirmSuffixTpl">
+                            <input nz-input id="confirmPassword" [type]="confirmPasswordVisible ? 'text' : 'password'"
+                                formControlName="confirmPassword" placeholder="Confirm your password" />
+                        </nz-input-group>
+                        <ng-template #confirmSuffixTpl>
+                            <span nz-icon [nzType]="confirmPasswordVisible ? 'eye-invisible' : 'eye'"
+                                (click)="toggleConfirmPasswordVisibility()" class="password-toggle"></span>
+                        </ng-template>
+                        <ng-template #confirmPasswordErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please confirm your
+                                password</ng-container>
+                            <ng-container *ngIf="control.hasError('passwordMismatch')">Passwords do not
+                                match</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <div class="terms-row">
+                    <label nz-checkbox formControlName="agreeTerms">
+                        I agree to the <a>Terms &amp; Conditions</a>
+                    </label>
+                </div>
+
+                <button nz-button nzType="primary" nzBlock nzSize="large" class="submit-btn" type="submit"
+                    [nzLoading]="submitting">
+                    Sign Up
+                </button>
+
+                <p class="switch-auth">
+                    Already have an account? <a routerLink="/login">Log in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

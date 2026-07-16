@@ -1,0 +1,88 @@
+<div class="auth-navbar">
+    <app-navbar></app-navbar>
+</div>
+<div class="auth-page">
+    <div class="auth-card">
+
+        <!-- ===== Illustration side ===== -->
+        <div class="auth-illustration">
+            <div class="brand">
+                <span nz-icon nzType="swap" nzTheme="outline" class="brand-icon"></span>
+                <span class="brand-name">SkillSwap</span>
+            </div>
+            <img src="assets/illustrations/login.png" alt="Person learning online" class="illustration-img" />
+        </div>
+
+        <!-- ===== Form side ===== -->
+        <div class="auth-form-panel">
+            <h1>Welcome Back <span class="wave">👋</span></h1>
+            <p class="subtext">Login to continue your learning journey</p>
+
+            <form nz-form [formGroup]="loginForm" (ngSubmit)="submit()" nzLayout="vertical">
+
+                <nz-form-item>
+                    <nz-form-label nzFor="email">Email Address</nz-form-label>
+                    <nz-form-control [nzErrorTip]="emailErrorTpl">
+                        <input nz-input id="email" type="email" formControlName="email"
+                            placeholder="Enter your email" />
+                        <ng-template #emailErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Email cannot be empty</ng-container>
+                            <ng-container *ngIf="control.hasError('email')">Invalid email format</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <div class="label-row">
+                        <nz-form-label nzFor="password">Password</nz-form-label>
+                        <a class="forgot-link">Forgot Password?</a>
+                    </div>
+                    <nz-form-control [nzErrorTip]="passwordErrorTpl">
+                        <nz-input-group [nzSuffix]="suffixTemplate">
+                            <input nz-input id="password" [type]="passwordVisible ? 'text' : 'password'"
+                                formControlName="password" placeholder="Enter your password" />
+                        </nz-input-group>
+                        <ng-template #suffixTemplate>
+                            <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                (click)="togglePasswordVisibility()" class="password-toggle"></span>
+                        </ng-template>
+                        <ng-template #passwordErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Password cannot be empty</ng-container>
+                            <ng-container *ngIf="control.hasError('minlength') || control.hasError('maxlength')">
+                                Password must be between 8 and 16 characters
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <div class="remember-row">
+                    <label nz-checkbox formControlName="rememberMe">Remember me</label>
+                </div>
+
+                <button nz-button nzType="primary" nzBlock nzSize="large" class="submit-btn" type="submit"
+                    [nzLoading]="submitting">
+                    Log In
+                </button>
+
+                <div class="divider-row">
+                    <span>or continue with</span>
+                </div>
+
+                <div class="social-row">
+                    <button nz-button nzBlock class="social-btn" type="button" (click)="continueWithGoogle()">
+                        <img src="assets/images/google-icon.svg" alt="" class="social-icon" />
+                        Google
+                    </button>
+                    <button nz-button nzBlock class="social-btn" type="button" (click)="continueWithGitHub()">
+                        <span nz-icon nzType="github" nzTheme="outline" class="social-icon"></span>
+                        GitHub
+                    </button>
+                </div>
+
+                <p class="switch-auth">
+                    Don't have an account? <a routerLink="/signup">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

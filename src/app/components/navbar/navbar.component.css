@@ -1,0 +1,59 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+}
+
+.navbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.navbar .brand .brand-icon {
+  font-size: 24px;
+  color: #5b4fe8;
+}
+
+.navbar .nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.navbar .nav-links a {
+  color: #6b6b7b;
+  font-size: 15px;
+  cursor: pointer;
+  padding-bottom: 4px;
+}
+
+.navbar .nav-links a.active {
+  color: #5b4fe8;
+  font-weight: 600;
+  border-bottom: 2px solid #5b4fe8;
+}
+
+.navbar .nav-links a:hover {
+  color: #5b4fe8;
+}
+
+.navbar .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar .nav-actions .login-btn {
+  border: 1px solid #e4e4ef;
+  border-radius: 8px;
+}
+
+.navbar .nav-actions .signup-btn {
+  background: #5b4fe8;
+  border-color: #5b4fe8;
+  border-radius: 8px;
+  font-weight: 600;
+}

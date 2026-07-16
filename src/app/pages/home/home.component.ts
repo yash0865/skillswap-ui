@@ -9,6 +9,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 interface Skill {
   name: string;
@@ -40,7 +41,8 @@ interface Stat {
     NzCardModule,
     NzAvatarModule,
     NzRateModule,
-    NzStatisticModule
+    NzStatisticModule,
+    NavbarComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
