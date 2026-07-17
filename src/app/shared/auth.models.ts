@@ -4,6 +4,11 @@ export interface LoginDTO {
   password: string;
 }
 
+export interface LoginResponse {
+  token: string;
+  type: string;
+}
+
 /** Mirrors com.skillswap.dto.SignUpDTO */
 export interface SignUpDTO {
   name: string;

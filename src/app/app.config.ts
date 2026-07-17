@@ -7,13 +7,14 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import {
   SwapOutline, ArrowRightOutline, StarFill, HeartFill, UserOutline,
   CoffeeOutline, CodeOutline, CameraOutline, BgColorsOutline,
   FileExcelOutline, FundOutline, GiftOutline, CustomerServiceOutline
 } from '@ant-design/icons-angular/icons';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 const icons = [
   SwapOutline, ArrowRightOutline, StarFill, HeartFill, UserOutline,
@@ -31,7 +32,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), provideNzI18n(en_US), 
     importProvidersFrom(FormsModule), provideAnimationsAsync(), 
-    provideHttpClient(),
-    { provide: NZ_ICONS, useValue: icons }
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: NZ_ICONS, useValue: icons },
+    AuthInterceptor
   ]
 };
