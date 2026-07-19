@@ -7,6 +7,8 @@ export interface LoginDTO {
 export interface LoginResponse {
   token: string;
   type: string;
+  name?: string;
+  email?: string;
 }
 
 /** Mirrors com.skillswap.dto.SignUpDTO */

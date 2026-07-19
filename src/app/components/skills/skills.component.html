@@ -1,0 +1,69 @@
+<div class="skills-component">
+    <div class="skill-row">
+        <div class="row-header">
+            <h3>Your Skills</h3>
+        </div>
+
+        <div class="skill-row-content">
+            <div class="skill-scroll">
+                <div class="skill-card teach" *ngFor="let skill of teachSkills">
+                    <button class="remove-btn" type="button" (click)="removeSkill(skill)" aria-label="Remove skill">
+                        <span nz-icon nzType="close"></span>
+                    </button>
+                    <div class="skill-icon">{{ initialFor(skill.name) }}</div>
+                    <span class="skill-name">{{ skill.name }}</span>
+                </div>
+            </div>
+
+            <div class="skill-add-column">
+                <div class="skill-card add-card" *ngIf="!addTeachMode" (click)="toggleTeachInput()">
+                    <span nz-icon nzType="plus" class="add-icon"></span>
+                    <span class="add-label">Add skill</span>
+                </div>
+
+                <div class="skill-card add-card-input" *ngIf="addTeachMode">
+                    <input nz-input placeholder="New teach skill" [(ngModel)]="newTeachSkill"
+                        (keydown.enter)="addSkill('TEACH')" />
+                    <div class="add-actions">
+                        <button nz-button nzType="primary" nzSize="small" (click)="addSkill('TEACH')">Add</button>
+                        <button nz-button nzType="default" nzSize="small" (click)="toggleTeachInput()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="skill-row">
+        <div class="row-header">
+            <h3>Skills you want to learn</h3>
+        </div>
+
+        <div class="skill-row-content">
+            <div class="skill-scroll">
+                <div class="skill-card learn" *ngFor="let skill of learnSkills">
+                    <button class="remove-btn" type="button" (click)="removeSkill(skill)" aria-label="Remove skill">
+                        <span nz-icon nzType="close"></span>
+                    </button>
+                    <div class="skill-icon">{{ initialFor(skill.name) }}</div>
+                    <span class="skill-name">{{ skill.name }}</span>
+                </div>
+            </div>
+
+            <div class="skill-add-column">
+                <div class="skill-card add-card" *ngIf="!addLearnMode" (click)="toggleLearnInput()">
+                    <span nz-icon nzType="plus" class="add-icon"></span>
+                    <span class="add-label">Add skill</span>
+                </div>
+
+                <div class="skill-card add-card-input" *ngIf="addLearnMode">
+                    <input nz-input placeholder="New learn skill" [(ngModel)]="newLearnSkill"
+                        (keydown.enter)="addSkill('LEARN')" />
+                    <div class="add-actions">
+                        <button nz-button nzType="primary" nzSize="small" (click)="addSkill('LEARN')">Add</button>
+                        <button nz-button nzType="default" nzSize="small" (click)="toggleLearnInput()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

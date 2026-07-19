@@ -1,0 +1,225 @@
+:host {
+    display: block;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #14142b;
+}
+
+.skills-component {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.skill-row {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.row-header h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #14142b;
+}
+
+.skill-row-content {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.skill-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 14px;
+    flex: 1 1 auto;
+    padding-bottom: 8px;
+}
+
+.skill-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.skill-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.skill-scroll::-webkit-scrollbar-thumb {
+    background: rgba(20, 20, 43, 0.2);
+    border-radius: 999px;
+}
+
+.skill-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(20, 20, 43, 0.2) transparent;
+}
+
+.skill-add-column {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.skill-scroll .skill-card {
+    min-width: 180px;
+    flex: 0 0 180px;
+}
+
+.skill-add-column .skill-card {
+    width: 180px;
+    flex: 0 0 auto;
+}
+
+/* ===== Skill card (matches homepage Popular Skills tile) =====
+   box-sizing: border-box so padding is INCLUDED in the fixed height below —
+   this is what keeps every variant (plain card / add-card / add-card-input)
+   at the exact same rendered height instead of padding pushing some taller. */
+.skill-card {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 12px;
+    border: 1px solid #ececf5;
+    border-radius: 14px;
+    height: 110px;
+    background: #ffffff;
+    text-align: center;
+    cursor: default;
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.skill-card:not(.add-card):not(.add-card-input):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(20, 20, 43, 0.08);
+}
+
+.skill-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.skill-card.teach .skill-icon {
+    background: #EEF0FE;
+    color: #5B4FE8;
+}
+
+.skill-card.learn .skill-icon {
+    background: #FDF3E3;
+    color: #E8A33D;
+}
+
+.skill-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #14142b;
+}
+
+/* ===== Remove button (shows on hover) ===== */
+.remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background: #f2f2f8;
+    color: #9a9aa8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.skill-card:hover .remove-btn {
+    opacity: 1;
+}
+
+.remove-btn:hover {
+    background: #FDEBEE;
+    color: #EF5D6F;
+}
+
+/* ===== Add card ===== */
+.add-card {
+    cursor: pointer;
+    color: #5B4FE8;
+    border: 1.5px dashed #cfc9fb;
+    background: #FAFAFE;
+}
+
+.add-card:hover {
+    border-color: #5B4FE8;
+    background: #F3F1FF;
+    transform: translateY(-4px);
+}
+
+.add-icon {
+    font-size: 18px;
+}
+
+.add-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Tighter padding + smaller gaps so the input + buttons fit inside the
+   same fixed 110px height as every other card, instead of overflowing it. */
+.add-card-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    border: 1.5px solid #5B4FE8;
+    background: #FAFAFE;
+}
+
+.add-card-input input.ant-input {
+    height: 28px;
+    padding: 0 8px;
+    font-size: 13px;
+}
+
+.add-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+.add-actions button {
+    height: 24px;
+    padding: 0 10px;
+    font-size: 12px;
+    line-height: 22px;
+}
+
+.add-actions button[nzType='primary'] {
+    background: #5B4FE8;
+    border-color: #5B4FE8;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.add-actions button[nzType='default'] {
+    border-radius: 8px;
+    border-color: #e4e4ef;
+    font-weight: 600;
+    color: #6b6b7b;
+}

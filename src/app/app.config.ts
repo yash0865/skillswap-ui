@@ -7,7 +7,7 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import {
   SwapOutline, ArrowRightOutline, StarFill, HeartFill, UserOutline,
@@ -34,6 +34,10 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule), provideAnimationsAsync(), 
     provideHttpClient(withInterceptorsFromDi()),
     { provide: NZ_ICONS, useValue: icons },
-    AuthInterceptor
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 };

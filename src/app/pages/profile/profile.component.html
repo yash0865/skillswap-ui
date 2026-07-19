@@ -1,0 +1,107 @@
+<div class="auth-navbar">
+    <app-navbar></app-navbar>
+</div>
+<div class="profile-page">
+
+    <!-- ===== Banner + avatar + info ===== -->
+    <div class="profile-header">
+        <div class="banner">
+            <img src="assets/illustrations/bg.jpg" alt="Profile banner" class="banner-img" />
+        </div>
+
+        <div class="header-content">
+            <div class="avatar-wrap">
+                <img src="assets/illustrations/profile.jpg" alt="{{ name }}" class="avatar-img" />
+            </div>
+
+            <div class="info-row">
+                <div class="identity">
+                    <div class="name-row">
+                        <h1>{{ name }}</h1>
+                        <span *ngIf="verified" nz-icon nzType="check-circle" nzTheme="fill"
+                            class="verified-badge"></span>
+                    </div>
+
+                    <div *ngIf="location" class="location-row">
+                        <span nz-icon nzType="environment" nzTheme="outline"></span>
+                        <span>{{ location }}</span>
+                    </div>
+
+                    <div class="meta-row">
+                        <nz-rate [ngModel]="rating" nzAllowHalf nzDisabled class="rate"></nz-rate>
+                        <span class="rating-value">{{ rating }}</span>
+                        <span class="dot">&bull;</span>
+                        <span class="review-count">{{ reviewCount }} reviews</span>
+                        <span *ngIf="memberSince" class="dot">&bull;</span>
+                        <span *ngIf="memberSince" class="member-since">Member since {{ memberSince | date:'mediumDate' }}</span>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <button nz-button nzType="primary" class="edit-btn" (click)="editProfile()">
+                        <span nz-icon nzType="edit" nzTheme="outline"></span>
+                        Edit Profile
+                    </button>
+                    <button nz-button class="share-btn" (click)="shareProfile()">
+                        <span nz-icon nzType="share-alt" nzTheme="outline"></span>
+                        Share Profile
+                    </button>
+                    <button nz-button nzType="default" class="logout-btn" (click)="logout()">
+                        <span nz-icon nzType="logout" nzTheme="outline"></span>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Tabs ===== -->
+    <nz-tabset [(nzSelectedIndex)]="selectedTabIndex" class="profile-tabs">
+        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tabTitleTpl">
+            <ng-template #tabTitleTpl>
+                <span class="tab-label">
+                    {{ tab.label }}
+                    <span *ngIf="tab.count !== undefined" class="tab-count">({{ tab.count }})</span>
+                </span>
+            </ng-template>
+        </nz-tab>
+    </nz-tabset>
+
+    <div class="tab-content">
+        <ng-container [ngSwitch]="tabs[selectedTabIndex].label">
+            <div *ngSwitchCase="'About'">
+                <p *ngIf="bio; else noBio" class="profile-bio">{{ bio }}</p>
+                <ng-template #noBio>
+                    <p>No bio available yet.</p>
+                </ng-template>
+            </div>
+            <div *ngSwitchCase="'Skills'">
+                <app-skills [skills]="skills" (skillAdded)="onSkillAdded($event)" (skillRemoved)="onSkillRemoved($event)"></app-skills>
+            </div>
+            <div *ngSwitchCase="'Reviews'">
+                <div *ngIf="reviews.length; else noReviews">
+                    <div class="review-card" *ngFor="let review of reviews">
+                        <pre>{{ review | json }}</pre>
+                    </div>
+                </div>
+                <ng-template #noReviews>
+                    <p>No reviews yet.</p>
+                </ng-template>
+            </div>
+            <div *ngSwitchCase="'Sessions'">
+                <div *ngIf="sessions.length; else noSessions">
+                    <div class="session-card" *ngFor="let session of sessions">
+                        <pre>{{ session | json }}</pre>
+                    </div>
+                </div>
+                <ng-template #noSessions>
+                    <p>No sessions yet.</p>
+                </ng-template>
+            </div>
+            <div *ngSwitchCase="'Achievements'">
+                <p>No achievements to display yet.</p>
+            </div>
+        </ng-container>
+    </div>
+
+</div>

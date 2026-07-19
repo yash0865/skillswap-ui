@@ -1,0 +1,114 @@
+<div class="auth-navbar">
+    <app-navbar></app-navbar>
+</div>
+
+<div class="edit-profile-page">
+    <div class="edit-card">
+
+        <div class="page-header">
+            <h1>Edit Profile</h1>
+            <p class="subtext">Update your details so other members know who they're swapping skills with</p>
+        </div>
+
+        <form nz-form [formGroup]="profileForm" (ngSubmit)="submit()" nzLayout="vertical">
+
+            <!-- ===== Avatar ===== -->
+            <div class="avatar-section">
+                <img [src]="avatarPreviewUrl" alt="Profile photo" class="avatar-preview" />
+                <nz-upload [nzShowUploadList]="false" [nzBeforeUpload]="onAvatarSelected" accept="image/*">
+                    <button nz-button type="button" class="change-photo-btn">
+                        <span nz-icon nzType="camera" nzTheme="outline"></span>
+                        Change Photo
+                    </button>
+                </nz-upload>
+            </div>
+
+            <!-- ===== Basic info ===== -->
+            <div class="form-row two-col">
+                <nz-form-item>
+                    <nz-form-label nzFor="name" nzRequired>Full Name</nz-form-label>
+                    <nz-form-control [nzErrorTip]="nameErrorTpl">
+                        <input nz-input id="name" formControlName="name" placeholder="Your full name" />
+                        <ng-template #nameErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Name cannot be empty</ng-container>
+                            <ng-container *ngIf="control.hasError('minlength') || control.hasError('maxlength')">
+                                Name must be between 3 and 20 characters
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzFor="location" nzRequired>Location</nz-form-label>
+                    <nz-form-control [nzErrorTip]="locationErrorTpl">
+                        <nz-input-group [nzPrefix]="locationPrefixTpl">
+                            <input nz-input id="location" formControlName="location" placeholder="City, Country" />
+                        </nz-input-group>
+                        <ng-template #locationPrefixTpl>
+                            <span nz-icon nzType="environment" nzTheme="outline"></span>
+                        </ng-template>
+                        <ng-template #locationErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Location cannot be empty</ng-container>
+                            <ng-container *ngIf="control.hasError('maxlength')">Location is too long</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- ===== Bio ===== -->
+            <nz-form-item>
+                <nz-form-label nzFor="bio" nzRequired>Bio</nz-form-label>
+                <nz-form-control [nzErrorTip]="bioErrorTpl">
+                    <textarea nz-input id="bio" formControlName="bio" rows="4" maxlength="50"
+                        placeholder="Tell people a bit about yourself, your experience, and what you're excited to teach or learn"></textarea>
+                    <div class="char-count">{{ bioCharCount }}/50</div>
+                    <ng-template #bioErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">Bio cannot be empty</ng-container>
+                        <ng-container *ngIf="control.hasError('minlength') || control.hasError('maxlength')">
+                            Bio must be between 10 and 50 characters
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- ===== Social links ===== -->
+            <div class="section-divider">
+                <span>Social Links <span class="optional-tag">(optional)</span></span>
+            </div>
+
+            <div class="form-row two-col">
+                <nz-form-item>
+                    <nz-form-label nzFor="linkedin">LinkedIn</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-group [nzPrefix]="linkedinPrefixTpl">
+                            <input nz-input id="linkedin" formControlName="linkedin" placeholder="Profile URL" />
+                        </nz-input-group>
+                        <ng-template #linkedinPrefixTpl>
+                            <span nz-icon nzType="linkedin" nzTheme="outline"></span>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzFor="portfolio">Portfolio</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-group [nzPrefix]="portfolioPrefixTpl">
+                            <input nz-input id="portfolio" formControlName="portfolio" placeholder="Website URL" />
+                        </nz-input-group>
+                        <ng-template #portfolioPrefixTpl>
+                            <span nz-icon nzType="link"></span>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- ===== Actions ===== -->
+            <div class="action-row">
+                <button nz-button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+                <button nz-button nzType="primary" type="submit" class="save-btn" [nzLoading]="submitting">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

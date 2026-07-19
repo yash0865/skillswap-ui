@@ -9,7 +9,15 @@
   </nav>
 
   <div class="nav-actions">
-    <button nz-button nzType="text" class="login-btn" routerLink="/login">Log In</button>
-    <button nz-button nzType="primary" class="signup-btn" routerLink="/signup">Sign Up</button>
+    <ng-container *ngIf="!isLoggedIn(); else loggedInActions">
+      <button nz-button nzType="text" class="login-btn" routerLink="/login">Log In</button>
+      <button nz-button nzType="primary" class="signup-btn" routerLink="/signup">Sign Up</button>
+    </ng-container>
+
+    <ng-template #loggedInActions>
+      <button nz-button nzType="text" class="profile-btn" routerLink="/profile" aria-label="Profile">
+        <span nz-icon nzType="user" nzTheme="outline"></span>
+      </button>
+    </ng-template>
   </div>
 </header>
