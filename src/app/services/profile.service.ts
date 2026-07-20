@@ -11,6 +11,9 @@ export interface UserProfile {
   userName: string;
   userBio?: string;
   userLocation?: string;
+  linkedInURL?: string;
+  portfolio?: string;
+  avatarUrl?: string;
   skills?: SkillInfo[];
   userReviews?: any[];
   userSessions?: any[];
@@ -24,5 +27,9 @@ export class ProfileService {
 
   getProfile(): Observable<UserProfile> {
     return this.http.get<UserProfile>(this.profileApiUrl);
+  }
+
+  updateProfile(profileData: Partial<UserProfile>): Observable<UserProfile> {
+    return this.http.put<UserProfile>(this.profileApiUrl, profileData);
   }
 }

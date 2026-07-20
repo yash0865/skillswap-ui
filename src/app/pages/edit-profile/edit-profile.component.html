@@ -59,9 +59,9 @@
             <nz-form-item>
                 <nz-form-label nzFor="bio" nzRequired>Bio</nz-form-label>
                 <nz-form-control [nzErrorTip]="bioErrorTpl">
-                    <textarea nz-input id="bio" formControlName="bio" rows="4" maxlength="50"
+                    <textarea nz-input id="bio" formControlName="bio" rows="4" maxlength="200"
                         placeholder="Tell people a bit about yourself, your experience, and what you're excited to teach or learn"></textarea>
-                    <div class="char-count">{{ bioCharCount }}/50</div>
+                    <div class="char-count">{{ bioCharCount }}/200</div>
                     <ng-template #bioErrorTpl let-control>
                         <ng-container *ngIf="control.hasError('required')">Bio cannot be empty</ng-container>
                         <ng-container *ngIf="control.hasError('minlength') || control.hasError('maxlength')">
@@ -78,10 +78,10 @@
 
             <div class="form-row two-col">
                 <nz-form-item>
-                    <nz-form-label nzFor="linkedin">LinkedIn</nz-form-label>
+                    <nz-form-label nzFor="linkedInURL">LinkedIn</nz-form-label>
                     <nz-form-control>
                         <nz-input-group [nzPrefix]="linkedinPrefixTpl">
-                            <input nz-input id="linkedin" formControlName="linkedin" placeholder="Profile URL" />
+                            <input nz-input id="linkedin" formControlName="linkedInURL" placeholder="Profile URL" />
                         </nz-input-group>
                         <ng-template #linkedinPrefixTpl>
                             <span nz-icon nzType="linkedin" nzTheme="outline"></span>

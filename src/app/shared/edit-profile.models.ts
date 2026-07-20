@@ -8,9 +8,6 @@ export interface EditProfileDTO {
     name: string;
     location: string;
     bio: string;
-    skillsToTeach: string[];
-    skillsToLearn: string[];
-    linkedin?: string;
-    github?: string;
+    linkedInURL?: string;
     portfolio?: string;
 }

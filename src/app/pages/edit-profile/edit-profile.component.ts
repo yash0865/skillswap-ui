@@ -10,6 +10,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzUploadModule, NzUploadFile } from 'ng-zorro-antd/upload';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import {NavbarComponent} from "../../components/navbar/navbar.component";
+import { ProfileService } from '../../services/profile.service';
 
 import { EditProfileDTO } from '../../shared/edit-profile.models';
 
@@ -34,6 +35,7 @@ export class EditProfileComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private message = inject(NzMessageService);
+  private profileService = inject(ProfileService);
 
   submitting = false;
 
@@ -42,8 +44,8 @@ export class EditProfileComponent implements OnInit {
   profileForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     location: ['', [Validators.required, Validators.maxLength(50)]],
-    bio: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
-    linkedin: [''],
+    bio: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
+    linkedInURL: [''],
     portfolio: ['']
   });
 
@@ -56,6 +58,28 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadProfile();
+  }
+
+  private loadProfile(): void {
+    this.profileService.getProfile().subscribe({
+      next: profile => {
+        this.profileForm.patchValue({
+          name: profile.userName ?? '',
+          location: profile.userLocation ?? '',
+          bio: profile.userBio ?? '',
+          linkedInURL: profile.linkedInURL ?? '',
+          portfolio: profile.portfolio ?? ''
+        });
+
+        if (profile.avatarUrl) {
+          this.avatarPreviewUrl = profile.avatarUrl;
+        }
+      },
+      error: err => {
+        console.error('Failed to load profile for editing', err);
+      }
+    });
   }
 
   onAvatarSelected(file: NzUploadFile): boolean {
@@ -84,6 +108,17 @@ export class EditProfileComponent implements OnInit {
     this.submitting = true;
     // TODO: wire up to your ProfileService once available.
     // this.profileService.updateProfile(payload).subscribe({ ... });
+
+    this.profileService.updateProfile(payload).subscribe({
+      next: updatedProfile => {
+        this.message.success('Profile updated successfully');
+      },
+      error: err => {
+        this.message.error('Failed to update profile');
+        console.error('Failed to update profile', err);
+      }
+    });
+
     setTimeout(() => {
       this.message.success('Profile ready to submit');
       console.log('Edit profile payload', payload);

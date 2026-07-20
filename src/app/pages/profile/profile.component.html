@@ -70,10 +70,7 @@
     <div class="tab-content">
         <ng-container [ngSwitch]="tabs[selectedTabIndex].label">
             <div *ngSwitchCase="'About'">
-                <p *ngIf="bio; else noBio" class="profile-bio">{{ bio }}</p>
-                <ng-template #noBio>
-                    <p>No bio available yet.</p>
-                </ng-template>
+                <app-about [bio]="bio" [linkedInURL]="linkedInURL" [portfolio]="portfolio"></app-about>
             </div>
             <div *ngSwitchCase="'Skills'">
                 <app-skills [skills]="skills" (skillAdded)="onSkillAdded($event)" (skillRemoved)="onSkillRemoved($event)"></app-skills>

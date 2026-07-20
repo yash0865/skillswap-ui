@@ -1,0 +1,38 @@
+<div class="about-section">
+
+    <!-- ===== Bio ===== -->
+    <div class="bio-block" *ngIf="bio; else noBio">
+        <span nz-icon nzType="message" nzTheme="fill" class="quote-icon"></span>
+        <p class="profile-bio">{{ bio }}</p>
+    </div>
+
+    <ng-template #noBio>
+        <div class="empty-bio">
+            <span nz-icon nzType="edit" nzTheme="outline" class="empty-icon"></span>
+            <p>No bio available yet.</p>
+        </div>
+    </ng-template>
+
+    <!-- ===== Links ===== -->
+    <div class="profile-links" *ngIf="linkedInURL || portfolio">
+        <a *ngIf="linkedInURL" class="link-pill linkedin" [href]="linkedInURL" target="_blank"
+            rel="noopener noreferrer">
+            <span nz-icon nzType="linkedin" nzTheme="outline" class="link-icon"></span>
+            <span class="link-text">
+                <span class="link-label">LinkedIn</span>
+                <span class="link-url">{{ linkedInURL }}</span>
+            </span>
+            <span nz-icon nzType="arrow-right" class="link-arrow"></span>
+        </a>
+
+        <a *ngIf="portfolio" class="link-pill portfolio" [href]="portfolio" target="_blank" rel="noopener noreferrer">
+            <span nz-icon nzType="link" class="link-icon"></span>
+            <span class="link-text">
+                <span class="link-label">Portfolio</span>
+                <span class="link-url">{{ portfolio }}</span>
+            </span>
+            <span nz-icon nzType="arrow-right" class="link-arrow"></span>
+        </a>
+    </div>
+
+</div>

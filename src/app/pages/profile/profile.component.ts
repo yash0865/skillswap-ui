@@ -12,6 +12,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ProfileService, UserProfile } from '../../services/profile.service';
 import { AuthService } from '../../services/auth.service';
 import { SkillsComponent, SkillInfo } from '../../components/skills/skills.component';
+import { AboutComponent } from '../../components/about/about.component';
 
 interface ProfileTab {
   label: string;
@@ -31,7 +32,8 @@ interface ProfileTab {
     NzTagModule,
     NavbarComponent,
     RouterModule,
-    SkillsComponent
+    SkillsComponent,
+    AboutComponent
 ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css', '../../shared/auth-shared.css']
@@ -44,6 +46,8 @@ export class ProfileComponent implements OnInit {
   name = 'Loading...';
   bio = '';
   location = '';
+  linkedInURL = '';
+  portfolio = '';
   verified = false;
   rating = 0;
   reviewCount = 0;
@@ -73,6 +77,8 @@ export class ProfileComponent implements OnInit {
         this.name = profile.userName ?? this.name;
         this.bio = profile.userBio ?? this.bio;
         this.location = profile.userLocation ?? this.location;
+        this.linkedInURL = profile.linkedInURL ?? this.linkedInURL;
+        this.portfolio = profile.portfolio ?? this.portfolio;
         this.skills = profile.skills ?? [];
         this.reviews = profile.userReviews ?? [];
         this.sessions = profile.userSessions ?? [];
