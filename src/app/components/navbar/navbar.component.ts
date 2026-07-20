@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
 interface NavLink {
   label: string;
   active: boolean;
+  route?: string;
 }
 
 @Component({
@@ -21,11 +22,22 @@ export class NavbarComponent {
   private authService = inject(AuthService);
   readonly isLoggedIn = this.authService.isLoggedIn;
 
-  navLinks: NavLink[] = [
-    { label: 'Home', active: true },
-    { label: 'Browse Skills', active: false },
-    { label: 'How It Works', active: false },
-    { label: 'Community', active: false },
-    { label: 'About', active: false }
-  ];
+  get navLinks(): NavLink[] {
+    if (this.isLoggedIn()) {
+      return [
+        { label: 'Home', active: true, route: '/' },
+        { label: 'Browse Skills', active: false, route: '/skills' },
+        { label: 'Find Matches', active: false, route: '/matches' },
+        { label: 'Sessions', active: false, route: '/sessions' },
+        { label: 'Messages', active: false, route: '/messages' }
+      ];
+    }
+
+    return [
+      { label: 'Home', active: true, route: '/' },
+      { label: 'Browse Skills', active: false, route: '/skills' },
+      { label: 'How It Works', active: false, route: '/how-it-works' },
+      { label: 'Community', active: false, route: '/community' }
+    ];
+  }
 }
