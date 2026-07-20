@@ -29,7 +29,7 @@ export class ProfileService {
     return this.http.get<UserProfile>(this.profileApiUrl);
   }
 
-  updateProfile(profileData: Partial<UserProfile>): Observable<UserProfile> {
-    return this.http.put<UserProfile>(this.profileApiUrl, profileData);
+  updateProfile(profileData: Partial<UserProfile>): Observable<string> {
+    return this.http.put(this.profileApiUrl, profileData, { responseType: 'text' as const });
   }
 }

@@ -106,24 +106,23 @@ export class EditProfileComponent implements OnInit {
     const payload: EditProfileDTO = this.profileForm.value;
 
     this.submitting = true;
-    // TODO: wire up to your ProfileService once available.
-    // this.profileService.updateProfile(payload).subscribe({ ... });
 
     this.profileService.updateProfile(payload).subscribe({
-      next: updatedProfile => {
-        this.message.success('Profile updated successfully');
+      next: responseText => {
+        if (responseText === 'Profile Updated') {
+          this.message.success(responseText);
+        } else {
+          this.message.error('Unexpected response from server');
+          console.warn('Edit profile returned unexpected response:', responseText);
+        }
+        this.submitting = false;
       },
       error: err => {
         this.message.error('Failed to update profile');
         console.error('Failed to update profile', err);
+        this.submitting = false;
       }
     });
-
-    setTimeout(() => {
-      this.message.success('Profile ready to submit');
-      console.log('Edit profile payload', payload);
-      this.submitting = false;
-    }, 300);
   }
 
   cancel(): void {
