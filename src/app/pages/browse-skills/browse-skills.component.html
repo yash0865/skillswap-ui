@@ -1,0 +1,119 @@
+<div class="auth-navbar">
+    <app-navbar></app-navbar>
+</div>
+
+
+<div class="browse-skills">
+
+    <!-- Header -->
+    <header class="browse-skills__header">
+        <h1>Browse Skills</h1>
+        <p>Find the right person to learn from or teach to grow together.</p>
+    </header>
+
+    <!-- Search + Sort -->
+    <div class="browse-skills__toolbar">
+        <nz-input-group nzPrefixIcon="search" class="browse-skills__search">
+            <input type="text" nz-input placeholder="Search by skill, name or keyword..." [(ngModel)]="searchTerm" />
+        </nz-input-group>
+
+        <div class="browse-skills__sort">
+            <span class="browse-skills__sort-label">Sort by:</span>
+            <nz-select [(ngModel)]="sortBy" nzBorderless class="browse-skills__sort-select">
+                <nz-option nzValue="relevance" nzLabel="Relevance"></nz-option>
+                <nz-option nzValue="rating" nzLabel="Highest Rated"></nz-option>
+                <nz-option nzValue="reviews" nzLabel="Most Reviews"></nz-option>
+                <nz-option nzValue="name" nzLabel="Name (A–Z)"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+
+    <!-- Category chips -->
+    <div class="browse-skills__categories">
+        <button *ngFor="let cat of categories; trackBy: trackByCategoryKey" type="button" class="category-chip"
+            [class.category-chip--active]="activeCategory === cat.key" (click)="selectCategory(cat.key)">
+            <span class="category-chip__icon">{{ cat.icon }}</span>
+            <span class="category-chip__label">{{ cat.label }}</span>
+            <span class="category-chip__count">{{ cat.key === 'all' ? 'All' : cat.count }}</span>
+        </button>
+    </div>
+
+    <!-- Results header -->
+    <div class="browse-skills__results-bar">
+        <span class="browse-skills__results-count">Showing {{ totalResults }} results</span>
+
+        <div class="browse-skills__view-toggle">
+            <span class="browse-skills__view-label">View as:</span>
+            <nz-radio-group [(ngModel)]="viewMode" nzButtonStyle="solid" class="view-toggle-group">
+                <label nz-radio-button nzValue="grid" nz-tooltip nzTooltipTitle="Grid view">
+                    <span nz-icon nzType="appstore" nzTheme="outline"></span>
+                </label>
+                <label nz-radio-button nzValue="list" nz-tooltip nzTooltipTitle="List view">
+                    <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+                </label>
+            </nz-radio-group>
+        </div>
+    </div>
+
+    <!-- Profile cards -->
+    <div class="skill-grid" [class.skill-grid--list]="viewMode === 'list'">
+        <article class="skill-card" *ngFor="let profile of filteredProfiles; trackBy: trackByProfileId">
+            <div class="skill-card__cover">
+                <img [src]="profile.avatarUrl" [alt]="profile.name" class="skill-card__avatar" />
+
+                <span class="skill-card__status" [ngClass]="'skill-card__status--' + profile.status">
+                    {{ statusLabel(profile.status) }}
+                </span>
+
+                <button type="button" class="skill-card__save" [class.skill-card__save--active]="isSaved(profile.id)"
+                    (click)="toggleSave(profile.id, $event)"
+                    [attr.aria-label]="isSaved(profile.id) ? 'Remove from saved' : 'Save profile'">
+                    <span nz-icon [nzType]="isSaved(profile.id) ? 'heart' : 'heart'"
+                        [nzTheme]="isSaved(profile.id) ? 'fill' : 'outline'"></span>
+                </button>
+            </div>
+
+            <div class="skill-card__body">
+                <div class="skill-card__name-row">
+                    <h3 class="skill-card__name">{{ profile.name }}</h3>
+                    <span *ngIf="profile.verified" nz-icon nzType="check-circle" nzTheme="fill"
+                        class="skill-card__verified" nz-tooltip nzTooltipTitle="Verified"></span>
+                </div>
+
+                <p class="skill-card__title">{{ profile.title }}</p>
+
+                <p class="skill-card__section-label">I can teach</p>
+                <div class="skill-card__tags">
+                    <nz-tag *ngFor="let tag of profile.teachTags" class="tag--teach">{{ tag }}</nz-tag>
+                </div>
+
+                <p class="skill-card__section-label" *ngIf="profile.learnTags?.length">I want to learn</p>
+                <div class="skill-card__tags" *ngIf="profile.learnTags?.length">
+                    <nz-tag *ngFor="let tag of profile.learnTags" class="tag--learn">{{ tag }}</nz-tag>
+                </div>
+
+                <div class="skill-card__meta">
+                    <span class="skill-card__rating">
+                        <span nz-icon nzType="star" nzTheme="fill"></span>
+                        {{ profile.rating }} ({{ profile.reviews }} reviews)
+                    </span>
+                    <span class="skill-card__location">
+                        <span nz-icon nzType="environment" nzTheme="outline"></span>
+                        {{ profile.location }}
+                    </span>
+                </div>
+
+                <button nz-button nzType="default" nzBlock class="skill-card__cta">
+                    View Profile
+                </button>
+            </div>
+        </article>
+    </div>
+
+    <!-- Pagination -->
+    <div class="browse-skills__pagination">
+        <nz-pagination [(nzPageIndex)]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="totalResults * 3"
+            nzShowSizeChanger="false"></nz-pagination>
+    </div>
+
+</div>

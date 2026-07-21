@@ -26,7 +26,7 @@ export class NavbarComponent {
     if (this.isLoggedIn()) {
       return [
         { label: 'Home', active: true, route: '/' },
-        { label: 'Browse Skills', active: false, route: '/skills' },
+        { label: 'Browse Skills', active: false, route: '/browse-skills' },
         { label: 'Find Matches', active: false, route: '/matches' },
         { label: 'Sessions', active: false, route: '/sessions' },
         { label: 'Messages', active: false, route: '/messages' }
